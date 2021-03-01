@@ -11,7 +11,7 @@ Because Worlds can track of all intermediate and previous Object states, it is v
 
 ### Immutability
 All Objects, Messages and Worlds should be preferable immutable. All new states are created based on old states. 
-Interestingly, Manikin enables purely-functional Object Orientated Programming, without resorting to Monads.
+Manikin enables purely-functional Object Orientated Programming, without resorting to Monads.
 (Monadic programming in Java is very verbose, because Java lacks convenient flatMap syntax).
 
 ### Concurrent and Distributed
@@ -23,12 +23,14 @@ Additionally, Manikin reduces the amount of Java boilerplate code to the absolut
 Indeed, Java boilerplate can be even more reduced when using modern constructs like Records or by generating data classes with project Lombok.
                                                              
 ### Java, Scala and Kotlin
-The core abstract API is developed in Java 1.8 and has NO dependencies. There are also Scala and Kotlin versions that are build on top of core Java API.
-Of course, Scala and Kotlin require less boilerplate.
+The core abstract API is developed in Java 1.8 and has NO dependencies. There are also Scala and Kotlin versions available that are build on top of core Java API.
+Of course, the Scala and Kotlin versions require less boilerplate.
+  
+### Where are the tests? 
+The property-based test-suite can be found in the scala version of Manikin.
 
-Here is a minimal 'Bank' example to get a feel of Manikin.
-You will also find the Scala version which is more compact.
-
+Here is a minimal 'Bank' example to get a feel of Manikin. 
+Please als have a look at the scala version and Kotlin 
 ```java
 public class SimpleTransfer {
     public static void main(String[] args) {
