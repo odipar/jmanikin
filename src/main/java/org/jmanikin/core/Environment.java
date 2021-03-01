@@ -1,8 +1,8 @@
 package org.jmanikin.core;
 
 /**
- * An Environment is the scope that is provided/injected when evaluating a Msg
- * All lookups and Messages sends should be dispatched to a World, given the scope of an Id
+ * <p>An Environment is the self scope that is provided/injected when evaluating a Msg.</p>
+ * <p>All lookups and Messages should be dispatched via the Environment's World.</p>
  *
  * @param <W> the World Type
  * @param <I> the Id Type
