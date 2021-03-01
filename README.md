@@ -6,31 +6,33 @@ With Manikin, you can guard Object states with pre- and post- Conditions, and op
 Manikin is heavily inspired by the [Eiffel](https://www.eiffel.com) programming language, [Software Transactional Memory](https://en.wikipedia.org/wiki/Software_transactional_memory) and [Worlds](http://www.vpri.org/pdf/tr2011001_final_worlds.pdf) that have similar goals.
 
 ### Message dispatch through Worlds
-Messages are dispatched to Objects via Worlds, which are then functionally updated and passed through after each (nested) dispatch.
+A Message is dispatched to an Object via a World, which is then functionally updated and passed through.
 Because Worlds can track of all intermediate and previous Object states, it is very easy to rollback state in case of failure, or to retry work after conflicts. 
 
 ### Immutability
 All Objects, Messages and Worlds should be preferable immutable. All new states are created based on old states. 
-Manikin enables purely-functional Object Orientated Programming, without resorting to Monads.
-(Monadic programming in Java is very verbose, because Java lacks convenient flatMap syntax).
+For the purists: Manikin enables purely-functional Object Orientated Programming, without resorting to Monads.
+(Monadic programming in Java is very verbose, as Java lacks convenient flatMap syntax).
 
 ### Concurrent and Distributed
 Manikin can also be configured to run on top of multi-threaded, concurrent or distributed Worlds - backed by databases such as [CockroachDB](https://www.cockroachlabs.com) - with strong [Serializability](https://en.wikipedia.org/wiki/Serializability) guarantees.  
                                                            
 ### Syntax and Types
 You can succinctly specify Objects, Identities, Messages, Conditions and Effects with Manikin *and* statically type them (making heavy use of Java Generics).
-Additionally, Manikin reduces the amount of Java boilerplate code to the absolute minimum by applying a sophisticated builder pattern to specify Messages.
-Indeed, Java boilerplate can be even more reduced when using modern constructs like Records or by generating data classes with project Lombok.
+
+Additionally, Manikin reduces the amount of Java boilerplate code to the absolute minimum by providing a fluent builder pattern to specify Messages.
+Java boilerplate can be even more reduced when you use modern constructs like [Records](https://cr.openjdk.java.net/~briangoetz/amber/datum.html) or by generating data classes with project [Lombok](https://www.baeldung.com/intro-to-project-lombok).
                                                              
-### Java, Scala and Kotlin
+### Java, Scala and Kotlin                                
 The core abstract API is developed in Java 1.8 and has NO dependencies. There are also Scala and Kotlin versions available that are build on top of core Java API.
 Of course, the Scala and Kotlin versions require less boilerplate.
   
 ### Where are the tests? 
-The property-based test-suite can be found in the scala version of Manikin.
-
-Here is a minimal 'Bank' example to get a feel of Manikin. 
-Please als have a look at the scala version and Kotlin 
+The property-based tests can be found in the Scala version of Manikin.
+  
+### Bank Example
+Here is a minimal Java example to get a feel of Manikin. 
+Please also have a look at the Scala and Kotlin version. 
 ```java
 public class SimpleTransfer {
     public static void main(String[] args) {
