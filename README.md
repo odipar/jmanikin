@@ -10,8 +10,10 @@ A Message is dispatched to an Object via a World, which is then functionally upd
 Because Worlds can track of all intermediate and previous Object states, it is very easy to rollback state in case of failure, or to retry work after conflicts. 
 
 ### Immutability
-All Objects, Messages and Worlds should be preferable immutable. All new states are created based on old states. 
-For the purists: Manikin enables purely-functional Object Orientated Programming, without resorting to Monads.
+All Objects, Messages and Worlds should be [immutable](https://softwareengineering.stackexchange.com/questions/148108/why-is-global-state-so-evil): always create new states - based on old states. 
+The core API is carefully designed for this exact purpose: don't share mutable state!
+
+For the Purists out there: Manikin enables purely-functional Object Orientated Programming, without resorting to Monads.
 (Monadic programming in Java is very verbose, as Java lacks convenient flatMap syntax).
 
 ### Concurrent and Distributed
