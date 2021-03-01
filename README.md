@@ -33,7 +33,7 @@ Of course, the Scala and Kotlin versions require less boilerplate.
 The property-based tests can be found in the Scala version of Manikin.
 
 ### Why?
-If you like [higher order state](https://www.cs.utexas.edu/~wcook/Drafts/2009/essay.pdf), but you shy away from mutable shared state, you should try Manikin!
+If you like [higher order state](https://www.cs.utexas.edu/~wcook/Drafts/2009/essay.pdf), but shy away from mutable shared state, you should try Manikin!
 
 ### Bank Example
 Here is a minimal Java example to get a feel of Manikin. 
