@@ -4,6 +4,9 @@ import org.jmanikin.core.*;
 
 import java.util.HashMap;
 
+/**
+ * A SimpleWorld provides the minimum implementation of a World, following Manikin's semantics.
+ */
 public class SimpleWorld implements World<SimpleWorld>, DefaultWorld {
     private final HashMap<Object, Object> obj = new HashMap<>();
     private final HashMap<Object, Object> old = new HashMap<>();

@@ -6,8 +6,7 @@ import java.util.function.Supplier;
 
 /**
  * <p>A LocalMessage wraps the Environment in a LocalEnv, and temporarily stores the LocalEnv in a ThreadLocal variable.</p>
- * <p>In turn, the LocalEnv can be referenced in the scope of a LocalMessage.</p>
- * <p>A LocalMessage IS A Environment.</p>
+ * <p>In turn, the LocalEnv can be referenced in the scope of a LocalMessage: a LocalMessage IS A Environment!</p>
  *
  * <p>Example implementation usage:</p>
  *
@@ -38,7 +37,7 @@ public interface LocalMessage<W extends World<W>, I extends Id<O>, O, E>
     }
     
     /**
-     * Returns the Msg that has been build
+     * Returns the Msg that has been build.
      *
      * @return the Msg that has been build
      */
@@ -60,6 +59,14 @@ public interface LocalMessage<W extends World<W>, I extends Id<O>, O, E>
         return env().send(id, msg);
     }
     
+    /**
+     * LocalEnvironment implementation that sets the ThreadLocal variable at each Stage.
+     *
+     * @param <W> the World Type
+     * @param <I> the Id Type
+     * @param <O> the Object Type
+     * @param <E> the Effect Type
+     */
     class LocalEnvironment<W extends World<W>, I extends Id<O>, O, E> implements Environment<W, I, O, E>,
         PreCondition<W, I, O, E>, Apply<W, I, O, E>, Effect<W, I, O, E>, PostCondition<W, I, O, E>, Msg<W, I, O, E> {
         
