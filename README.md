@@ -37,7 +37,7 @@ If you like [higher order state](https://www.cs.utexas.edu/~wcook/Drafts/2009/es
 
 ### Bank Example
 Here is a minimal Java example to get a feel of Manikin. 
-Please also have a look at the [Scala](https://github.com/odipar/smanikin) and [Kotlin](https://github.com/odipar/kmanikin)) version. 
+Please also have a look at the [Scala](https://github.com/odipar/smanikin) and [Kotlin](https://github.com/odipar/kmanikin) version. 
 
 ```java
 public class SimpleTransfer {
