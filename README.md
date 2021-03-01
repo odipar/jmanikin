@@ -26,7 +26,7 @@ Additionally, Manikin reduces the amount of Java boilerplate code to the absolut
 Java boilerplate can be even more reduced when you use modern constructs like [Records](https://cr.openjdk.java.net/~briangoetz/amber/datum.html) or by generating data classes with project [Lombok](https://www.baeldung.com/intro-to-project-lombok).
                                                              
 ### Java, Scala and Kotlin                                
-The core abstract API is developed in Java 1.8 and has NO dependencies. There are also Scala and Kotlin versions available that are build on top of core Java API that require less boilerplate.
+The core abstract API is developed in Java 1.8 and has NO dependencies. There are also Scala and Kotlin versions available that are build on top of core Java API but require less boilerplate.
   
 ### Where are the tests? 
 The property-based tests can be found in the Scala version of Manikin.
