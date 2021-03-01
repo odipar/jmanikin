@@ -7,13 +7,13 @@ Manikin is heavily inspired by the [Eiffel](https://www.eiffel.com) programming 
 
 ### Message dispatch through Worlds
 A Message is dispatched to an Object via a World, which is then functionally updated and passed through.
-Because Worlds can track of all intermediate and previous Object states, it is very easy to rollback state in case of failure, or to retry work after conflicts. 
+Because Worlds can track all intermediate and previous Object states, it is very easy to rollback state in case of failure, or to retry work after conflicts. 
 
 ### Immutability
-All Objects, Messages and Worlds should be [immutable](https://softwareengineering.stackexchange.com/questions/148108/why-is-global-state-so-evil): always create new states - based on old states. 
+All Objects, Messages and Worlds should be [immutable](https://softwareengineering.stackexchange.com/questions/148108/why-is-global-state-so-evil): always create new states based on old states. 
 The core API is carefully designed for this exact purpose: don't share mutable state!
 
-For the Purists out there: Manikin enables purely-functional Object Orientated Programming, without resorting to Monads.
+For the Purists out there: Manikin enables Purely Functional Object Orientated Programming (PFOOP 🙃) without resorting to [Monads](https://zio.dev).
 (Monadic programming in Java is very verbose, as Java lacks convenient flatMap syntax).
 
 ### Concurrent and Distributed
@@ -31,10 +31,14 @@ Of course, the Scala and Kotlin versions require less boilerplate.
   
 ### Where are the tests? 
 The property-based tests can be found in the Scala version of Manikin.
-  
+
+### Why bother?
+If you like [higher order state](https://www.cs.utexas.edu/~wcook/Drafts/2009/essay.pdf), but you shy away from mutable shared state, you should try Manikin!
+
 ### Bank Example
 Here is a minimal Java example to get a feel of Manikin. 
-Please also have a look at the Scala and Kotlin version. 
+Please also have a look at the [Scala](https://github.com/odipar/smanikin) and [Kotlin](https://github.com/odipar/kmanikin)) version. 
+
 ```java
 public class SimpleTransfer {
     public static void main(String[] args) {
