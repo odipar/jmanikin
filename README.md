@@ -29,7 +29,7 @@ Java boilerplate reduced even more with [Records](https://cr.openjdk.java.net/~b
 The core abstract API is developed in Java 1.8 and has NO dependencies. There are also Scala and Kotlin versions available that are build on top of the core Java API but require less boilerplate.
   
 ### Testing
-Conformance tests can be found in the [org.jmanikin.test]. You can call these tests from your favourite test library.
+Conformance tests can be found in the [org.jmanikin.test][https://github.com/odipar/jmanikin/tree/master/src/main/java/org/jmanikin/test]. You can call these tests from your favourite test library.
 
 ### Why?
 If you like [higher order state](https://www.cs.utexas.edu/~wcook/Drafts/2009/essay.pdf), but shy away from mutable shared state, you should try Manikin!
