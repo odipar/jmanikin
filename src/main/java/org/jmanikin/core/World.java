@@ -45,4 +45,11 @@ public interface World<W extends World<W>> {
      * @return the effect of the Message send, wrapped in a Value
      */
     <I extends Id<O>, O, E> Value<W, E> send(I id, Message<W, I, O, E> msg);
+    
+    /**
+     * Returns a pristine new World of type W
+     *
+     * @return a pristine new World
+     */
+    W init();
 }

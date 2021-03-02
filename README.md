@@ -10,7 +10,7 @@ A Message is dispatched to an Object via a World, which is then functionally upd
 Because Worlds can track all intermediate and previous Object states, it is very easy to rollback state in case of failure, or to retry work after conflicts. 
 
 ### Immutability
-All Objects, Messages and Worlds should be [immutable](https://softwareengineering.stackexchange.com/questions/148108/why-is-global-state-so-evil): always create new states based on old states. 
+All Objects, Messages and Worlds should be [immutable](https://softwareengineering.stackexchange.com/questions/148108/why-is-global-state-so-evil): they always create new states based on old states. 
 The core API is carefully designed for this exact purpose: don't share mutable state!
 
 For the Purists out there: Manikin enables Purely Functional Object Orientated Programming (PFOOP 🙃) without resorting to [Monads](https://zio.dev).
@@ -23,13 +23,13 @@ Manikin can also be configured to run on top of multi-threaded, concurrent or di
 You can succinctly specify Objects, Identities, Messages, Conditions and Effects with Manikin *and* statically type them (making heavy use of Java Generics).
 
 Additionally, Manikin reduces the amount of Java boilerplate code to the absolute minimum by providing a fluent builder pattern to specify Messages.
-Java boilerplate can be even more reduced when you use modern constructs like [Records](https://cr.openjdk.java.net/~briangoetz/amber/datum.html) or by generating data classes with project [Lombok](https://www.baeldung.com/intro-to-project-lombok).
+Java boilerplate reduced even more with [Records](https://cr.openjdk.java.net/~briangoetz/amber/datum.html) or project [Lombok](https://www.baeldung.com/intro-to-project-lombok).
                                                              
 ### Java, Scala and Kotlin                                
 The core abstract API is developed in Java 1.8 and has NO dependencies. There are also Scala and Kotlin versions available that are build on top of the core Java API but require less boilerplate.
   
-### Where are the tests? 
-The property-based tests can be found in the Scala version of Manikin.
+### Testing
+Conformance tests can be found in the [org.jmanikin.test]. You can call these tests from your favourite test library.
 
 ### Why?
 If you like [higher order state](https://www.cs.utexas.edu/~wcook/Drafts/2009/essay.pdf), but shy away from mutable shared state, you should try Manikin!
@@ -74,8 +74,7 @@ public interface AccountModule {
     class Open<W extends World<W>> implements AccountMsg<W> {
         public final Double initial;
         public Open(Double initial) { this.initial = initial; }
-    
-    
+        
         @Override public Msg<W, ID, Account, Void> local() { return
             pre(() -> true).
             app(() -> new Account(initial)).
@@ -99,8 +98,7 @@ public interface AccountModule {
     class Withdraw<W extends World<W>> implements AccountMsg<W> {
         public final Double amount;
         public Withdraw(Double amount) { this.amount = amount; }
-    
-    
+        
         @Override public Msg<W, ID, Account, Void> local() { return
             pre(() -> true).
             app(() -> new Account(obj().balance - amount)).

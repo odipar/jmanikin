@@ -43,8 +43,8 @@ public interface TransferModule {
             pre(() -> amount > 0.0 && from != to).
             app(() -> new Transfer(from, to, amount)).
             eff(() -> {
-                send(from, new AccountModule.Withdraw<>(amount));
-                return send(to, new AccountModule.Deposit<>(amount));
+                        send(from, new AccountModule.Withdraw<>(amount));
+                return  send(to, new AccountModule.Deposit<>(amount));
             }).
             pst(() -> obj(from).balance + obj(to).balance == old(from).balance + old(to).balance);
         }
