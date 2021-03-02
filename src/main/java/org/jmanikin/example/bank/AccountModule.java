@@ -21,12 +21,11 @@ public interface AccountModule {
         public final Double initial;
         public Open(Double initial) { this.initial = initial; }
     
-        @Override public Msg<W, ID, Account, Void> local() {
-            return
-                pre(() -> true).
-                app(() -> obj()).
-                eff(null).
-                pst(() -> true);
+        @Override public Msg<W, ID, Account, Void> local() { return
+            pre(() -> true).
+            app(() -> new Account(initial)).
+            eff(() -> null).
+            pst(() -> obj().balance == initial);
         }
     }
     
