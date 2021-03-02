@@ -23,7 +23,7 @@ Manikin can also be configured to run on top of multi-threaded, concurrent or di
 You can succinctly specify Objects, Identities, Messages, Conditions and Effects with Manikin *and* statically type them (making heavy use of Java Generics).
 
 Additionally, Manikin reduces the amount of Java boilerplate code to the absolute minimum by providing a fluent builder pattern to specify Messages.
-Java boilerplate reduced even more with [Records](https://cr.openjdk.java.net/~briangoetz/amber/datum.html) or project [Lombok](https://www.baeldung.com/intro-to-project-lombok).
+Java boilerplate can be reduced even more with [Records](https://cr.openjdk.java.net/~briangoetz/amber/datum.html) or project [Lombok](https://www.baeldung.com/intro-to-project-lombok).
                                                              
 ### Java, Scala and Kotlin                                
 The core abstract API is developed in Java 1.8 and has NO dependencies. There are also Scala and Kotlin versions available that are build on top of the core Java API but require less boilerplate.
