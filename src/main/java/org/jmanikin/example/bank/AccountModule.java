@@ -46,7 +46,7 @@ public interface AccountModule {
         public Withdraw(Double amount) { this.amount = amount; }
         
         @Override public Msg<W, ID, Account, Void> local() { return
-            pre(() -> amount >= 0.0 && obj().balance >= amount).
+            pre(() -> amount > 0.0 && obj().balance >= amount).
             app(() -> new Account(obj().balance - amount)).
             eff(() -> null).
             pst(() -> obj().balance == old().balance - amount);
