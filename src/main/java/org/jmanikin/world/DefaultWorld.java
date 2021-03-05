@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 
 public interface DefaultWorld {
     /**
-     * Default Environment implementation
+     * <p>Default Environment implementation.</p>
      *
      * @param <W> the World Type
      * @param <I> the Id Type

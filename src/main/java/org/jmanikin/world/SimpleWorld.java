@@ -6,10 +6,10 @@ import org.jmanikin.test.WorldConformanceTest;
 import java.util.HashMap;
 
 /**
- * A SimpleWorld provides the minimum (mutable!) World implementation that still adheres to Manikin's semantics.
- * Because SimpleWorld is not immutable you cannot share it between multiple Threads.
+ * <p>A SimpleWorld provides the minimum (mutable!) World implementation that still adheres to Manikin's semantics.</p>
+ * <p>Because SimpleWorld is not immutable you cannot share it between multiple Threads.</p>
  *
- * WARNING: NOT THREAD SAFE
+ * <p><b>WARNING: NOT THREAD SAFE</b></p>
  */
 public class SimpleWorld implements World<SimpleWorld>, DefaultWorld {
     private final HashMap<Object, Object> obj = new HashMap<>();

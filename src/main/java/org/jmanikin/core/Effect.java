@@ -3,7 +3,7 @@ package org.jmanikin.core;
 import java.util.function.Supplier;
 
 /**
- * The Effect stage of building a Message.
+ * <p>The Effect stage of building a Message.</p>
  *
  * @param <W> the World Type
  * @param <I> the Id Type
