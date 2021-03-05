@@ -1,7 +1,7 @@
 package org.jmanikin.core;
 
 /**
- * <p>A Value correlates a value V with the World W that produced the value.</p>
+ * <p>A Value correlates a value V with a World W that produced the value.</p>
  *
  * @param <W> the World type
  * @param <V> the Value type
