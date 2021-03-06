@@ -6,7 +6,7 @@
 
     <groupId>org.jmanikin</groupId>
     <artifactId>jmanikin-core</artifactId>
-    <version>0.2.1</version>
+    <version>0.2.2</version>
 
     <name>jmanikin-core</name>
     <description>Manikin Core Java API</description>
