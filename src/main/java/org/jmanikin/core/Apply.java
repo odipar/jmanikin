@@ -3,7 +3,7 @@ package org.jmanikin.core;
 import java.util.function.Supplier;
 
 /**
- * The Apply stage of building a Message.
+ * <p>The Apply stage of building a Message.</p>
  *
  * @param <W> the World Type
  * @param <I> the Id Type

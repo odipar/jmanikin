@@ -41,7 +41,7 @@ public interface World<W extends World<W>> {
      * @param msg the message to send to the Object
      * @param <I> the Id Type
      * @param <O> the Object Type
-     * @param <E> the Reference Type
+     * @param <E> the Effect Type
      * @return the effect of the Message send, wrapped in a Value
      */
     <I extends Id<O>, O, E> Value<W, E> send(I id, Message<W, I, O, E> msg);

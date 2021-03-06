@@ -48,14 +48,19 @@ public interface WorldTest<W extends World<W>> extends TestModule, ConformanceRe
             
             world = world.
                 send(a, new SetMember<>(10)).
-                send(b, new LocalSetMember<>(100)).
                 send(a, new SetMember<>(20)).
-                send(b, new LocalSetMember<>(200)).
                 world;
             
             if (world.old(a).value.member != 10)  error("old(a).value.member should be 10");
-            if (world.old(b).value.member != 100) error("old(b).value.member should be 100");
             if (world.obj(a).value.member != 20)  error("obj(a).value.member should be 20");
+    
+    
+            world = world.
+                send(b, new SetMember<>(100)).
+                send(b, new SetMember<>(200)).
+                world;
+    
+            if (world.old(b).value.member != 100) error("old(b).value.member should be 100");
             if (world.obj(b).value.member != 200) error("obj(b).value.member should be 200");
         }
         catch (Exception e) {

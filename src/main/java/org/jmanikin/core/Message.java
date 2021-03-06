@@ -23,9 +23,9 @@ package org.jmanikin.core;
  */
 public interface Message<W extends World<W>, I extends Id<O>, O, E> {
     /**
-     * Builds a Msg, given an environment Environment
+     * Builds a Msg, given an Environment
      *
-     * @param env the environment Environment
+     * @param env the environment
      * @return the Msg
      */
     Msg<W, I, O, E> msg(Environment<W, I, O, E> env);

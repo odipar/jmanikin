@@ -76,7 +76,7 @@ public interface AccountModule {
         public Open(Double initial) { this.initial = initial; }
         
         @Override public Msg<W, ID, Account, Void> local() { return
-            pre(() -> true).
+            pre(() -> initial >= 0.0).
             app(() -> new Account(initial)).
             eff(() -> null).
             pst(() -> obj().balance == initial);
@@ -88,7 +88,7 @@ public interface AccountModule {
         public Deposit(Double amount) { this.amount = amount; }
         
         @Override public Msg<W, ID, Account, Void> local() { return
-            pre(() -> true).
+            pre(() -> amount > 0.0).
             app(() -> new Account(obj().balance + amount)).
             eff(() -> null).
             pst(() -> obj().balance == old().balance + amount);
@@ -100,13 +100,14 @@ public interface AccountModule {
         public Withdraw(Double amount) { this.amount = amount; }
         
         @Override public Msg<W, ID, Account, Void> local() { return
-            pre(() -> true).
+            pre(() -> amount > 0.0 && obj().balance >= amount).
             app(() -> new Account(obj().balance - amount)).
             eff(() -> null).
             pst(() -> obj().balance == old().balance - amount);
         }
     }
 }
+
 ```
 
 ```java

@@ -1,7 +1,7 @@
 package org.jmanikin.core;
 
 /**
- * An Id is a factory for (a pristine) Object O which it subsequently identifies.
+ * <p>An Id is a factory for (a pristine) Object O which it subsequently identifies.</p>
  *
  * @param <O> the Object type
  */
