@@ -2,23 +2,15 @@ package org.jmanikin.core;
 
 /**
  * <p>An Environment is the self scope that is provided/injected when evaluating a Msg.</p>
- * <p>All lookups and Messages should be dispatched via the Environment's World.</p>
+ * <p>All lookups and Messages should be dispatched via this Environment.</p>
  *
- * @param <W> the World Type
  * @param <I> the Id Type
  * @param <O> the Object Type
  * @param <E> the Effect Type
  */
-public interface Environment<W extends World<W>, I extends Id<O>, O, E> extends PreCondition<W, I, O, E> {
+public interface Environment<I extends Id<O>, O, E> extends PreCondition<I, O, E> {
     /**
-     * Returns the world that all lookups and Messages are dispatched to
-     *
-     * @return the World
-     */
-    W world();
-    
-    /**
-     * Returns the Object identifier that is in scope
+     * Returns the Object identifier that's in scope
      *
      * @return the Object identifier
      */
@@ -29,18 +21,14 @@ public interface Environment<W extends World<W>, I extends Id<O>, O, E> extends 
      *
      * @return the Object O
      */
-    default O obj() {
-        return obj(self());
-    }
+    default O obj() { return obj(self()); }
     
     /**
      * Returns the old Object O
      *
      * @return the Object O
      */
-    default O old() {
-        return old(self());
-    }
+    default O old() { return old(self()); }
     
     /**
      * Returns the current Object O2, given its id
@@ -70,5 +58,5 @@ public interface Environment<W extends World<W>, I extends Id<O>, O, E> extends 
      * @param <R2> the Reference Type
      * @return the effect R of the Message send
      */
-    <I2 extends Id<O2>, O2, R2> R2 send(I2 id, Message<W, I2, O2, R2> msg);
+    <I2 extends Id<O2>, O2, R2> R2 send(I2 id, Message<I2, O2, R2> msg);
 }
