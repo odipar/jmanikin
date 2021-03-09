@@ -77,9 +77,9 @@ public interface AccountModule {
         
         @Override public Msg<ID, Account, Void> local() { return
             pre(() -> initial >= 0.0).
-                app(() -> new Account(initial)).
-                eff(() -> null).
-                pst(() -> obj().balance == initial);
+            app(() -> new Account(initial)).
+            eff(() -> null).
+            pst(() -> obj().balance == initial);
         }
     }
     
@@ -89,9 +89,9 @@ public interface AccountModule {
         
         @Override public Msg<ID, Account, Void> local() { return
             pre(() -> amount > 0.0).
-                app(() -> new Account(obj().balance + amount)).
-                eff(() -> null).
-                pst(() -> obj().balance == old().balance + amount);
+            app(() -> new Account(obj().balance + amount)).
+            eff(() -> null).
+            pst(() -> obj().balance == old().balance + amount);
         }
     }
     
@@ -101,9 +101,9 @@ public interface AccountModule {
         
         @Override public Msg<ID, Account, Void> local() { return
             pre(() -> amount > 0.0 && obj().balance >= amount).
-                app(() -> new Account(obj().balance - amount)).
-                eff(() -> null).
-                pst(() -> obj().balance == old().balance - amount);
+            app(() -> new Account(obj().balance - amount)).
+            eff(() -> null).
+            pst(() -> obj().balance == old().balance - amount);
         }
     }
 }
@@ -148,12 +148,12 @@ public interface TransferModule {
         
         @Override public Msg<ID, Transfer, Void> local() { return
             pre(() -> amount > 0.0 && from != to).
-                app(() -> new Transfer(from, to, amount)).
-                eff(() -> {
-                    send(from, new AccountModule.Withdraw(amount));
-                    return  send(to, new AccountModule.Deposit(amount));
-                }).
-                pst(() -> obj(from).balance + obj(to).balance == old(from).balance + old(to).balance);
+            app(() -> new Transfer(from, to, amount)).
+            eff(() -> {
+                send(from, new AccountModule.Withdraw(amount));
+                return  send(to, new AccountModule.Deposit(amount));
+            }).
+            pst(() -> obj(from).balance + obj(to).balance == old(from).balance + old(to).balance);
         }
     }
 }
