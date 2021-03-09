@@ -15,11 +15,11 @@ public interface TestModule {
         public CObject(int member) { this.member = member; }
     }
     
-    interface CMsg<W extends World<W>, E> extends Message<W, CId, CObject, E> { }
-    interface LMsg<W extends World<W>, E> extends LocalMessage<W, CId, CObject, E> { }
+    interface CMsg<E> extends Message<CId, CObject, E> { }
+    interface LMsg<E> extends LocalMessage<CId, CObject, E> { }
     
-    class CopyId<W extends World<W>, E> implements CMsg<W, Void> {
-        @Override public Msg<W, CId, CObject, Void> msg(Environment<W, CId, CObject, Void> e) { return e.
+    class CopyId implements CMsg<Void> {
+        @Override public Msg<CId, CObject, Void> msg(Environment<CId, CObject, Void> e) { return e.
             pre(() -> true).
             app(() -> new CObject(e.self().id)).
             eff(() -> null).
@@ -27,8 +27,8 @@ public interface TestModule {
         }
     }
     
-    class LocalCopyId<W extends World<W>, E> implements LMsg<W, Void> {
-        @Override public Msg<W, CId, CObject, Void> local() { return
+    class LocalCopyId implements LMsg<Void> {
+        @Override public Msg<CId, CObject, Void> local() { return
             pre(() -> true).
                 app(() -> new CObject(self().id)).
                 eff(() -> null).
@@ -36,11 +36,11 @@ public interface TestModule {
         }
     }
     
-    class SetMember<W extends World<W>, E> implements CMsg<W, Integer> {
+    class SetMember implements CMsg<Integer> {
         public final int member;
         public SetMember(int member) { this.member = member; }
         
-        @Override public Msg<W, CId, CObject, Integer> msg(Environment<W, CId, CObject, Integer> e) { return e.
+        @Override public Msg<CId, CObject, Integer> msg(Environment<CId, CObject, Integer> e) { return e.
             pre(() -> true).
             app(() -> new CObject(member)).
             eff(() -> member).
@@ -48,11 +48,11 @@ public interface TestModule {
         }
     }
     
-    class LocalSetMember<W extends World<W>, E> implements LMsg<W, Integer> {
+    class LocalSetMember implements LMsg<Integer> {
         public final int member;
         public LocalSetMember(int member) { this.member = member; }
         
-        @Override public Msg<W, CId, CObject, Integer> local() { return
+        @Override public Msg<CId, CObject, Integer> local() { return
             pre(() -> true).
                 app(() -> new CObject(member)).
                 eff(() -> member).
@@ -60,38 +60,38 @@ public interface TestModule {
         }
     }
     
-    class SendSetMember<W extends World<W>, E> implements CMsg<W, Integer> {
+    class SendSetMember implements CMsg<Integer> {
         public final int member;
         public final CId other;
         
         public SendSetMember(int member, CId other) { this.member = member; this.other = other; }
         
-        @Override public Msg<W, CId, CObject, Integer> msg(Environment<W, CId, CObject, Integer> e) { return e.
+        @Override public Msg<CId, CObject, Integer> msg(Environment<CId, CObject, Integer> e) { return e.
             pre(() -> other != null).
             app(() -> new CObject(member)).
-            eff(() -> e.send(other, new SetMember<>(member))).
+            eff(() -> e.send(other, new SetMember(member))).
             pst(() -> e.obj(other).member == e.obj().member);
         }
     }
     
-    class LocalSendSetMember<W extends World<W>, E> implements LMsg<W, Integer> {
+    class LocalSendSetMember implements LMsg<Integer> {
         public final int member;
         public final CId other;
         
         public LocalSendSetMember(int member, CId other) { this.member = member; this.other = other; }
         
-        @Override public Msg<W, CId, CObject, Integer> local() { return
+        @Override public Msg<CId, CObject, Integer> local() { return
             pre(() -> other != null).
             app(() -> new CObject(member)).
-            eff(() -> send(other, new SetMember<>(member))).
+            eff(() -> send(other, new SetMember(member))).
             pst(() -> obj(other).member == obj().member);
         }
     }
     
-    class ThrowPstException<W extends World<W>, E> implements LMsg<W, Void> {
+    class ThrowPstException implements LMsg<Void> {
         public ThrowPstException() { }
         
-        @Override public Msg<W, CId, CObject, Void> local() { return
+        @Override public Msg<CId, CObject, Void> local() { return
             pre(() -> true).
                 app(() -> new CObject(1000)).
                 eff(() -> null).

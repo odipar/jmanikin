@@ -5,12 +5,11 @@ import java.util.function.Supplier;
 /**
  * The final Msg stage of building a Message.
  *
- * @param <W> the World Type
  * @param <I> the Id Type
  * @param <O> the Object Type
  * @param <E> the Effect Type
  */
-public interface Msg<W extends World<W>, I extends Id<O>, O, E> {
+public interface Msg<I extends Id<O>, O, E> {
     /**
      * Returns the lazy pre-condition supplier that was build by the builder.
      *

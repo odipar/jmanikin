@@ -26,9 +26,9 @@ public interface TransferModule {
         }
     }
     
-    interface TransferMsg<W extends World<W>> extends LocalMessage<W, ID, Transfer, Void> { }
+    interface TransferMsg extends LocalMessage<ID, Transfer, Void> { }
     
-    class Book<W extends World<W>> implements TransferMsg<W> {
+    class Book implements TransferMsg {
         public final AccountModule.ID from;
         public final AccountModule.ID to;
         public final Double amount;
@@ -39,12 +39,12 @@ public interface TransferModule {
             this.amount = amount;
         }
         
-        @Override public Msg<W, ID, Transfer, Void> local() { return
+        @Override public Msg<ID, Transfer, Void> local() { return
             pre(() -> amount > 0.0 && from != to).
             app(() -> new Transfer(from, to, amount)).
             eff(() -> {
-                        send(from, new AccountModule.Withdraw<>(amount));
-                return  send(to, new AccountModule.Deposit<>(amount));
+                        send(from, new AccountModule.Withdraw(amount));
+                return  send(to, new AccountModule.Deposit(amount));
             }).
             pst(() -> obj(from).balance + obj(to).balance == old(from).balance + old(to).balance);
         }

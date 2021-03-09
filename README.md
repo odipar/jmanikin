@@ -46,12 +46,12 @@ public class SimpleTransfer {
         TransferModule.ID t1 = new TransferModule.ID(1L);
         
         Value<SimpleWorld, Void> result = new SimpleWorld().
-            send(a1, new AccountModule.Open<>(50.0)).
-            send(a2, new AccountModule.Open<>(80.0)).
-            send(t1, new TransferModule.Book<>(a1, a2, 30.0));
+            send(a1, new AccountModule.Open(50.0)).
+            send(a2, new AccountModule.Open(80.0)).
+            send(t1, new TransferModule.Book(a1, a2, 30.0));
         
-        System.out.println(result.obj(a1).value.balance); // 20.0
-        System.out.println(result.obj(a2).value.balance); // 110.0
+        System.out.println(result.obj(a1).value().balance); // 20.0
+        System.out.println(result.obj(a2).value().balance); // 110.0
     }
 }
 ```
@@ -69,13 +69,13 @@ public interface AccountModule {
         public Account(Double balance) { this.balance = balance; }
     }
     
-    interface AccountMsg<W extends World<W>> extends LocalMessage<W, ID, Account, Void> { }
+    interface AccountMsg extends LocalMessage<ID, Account, Void> { }
     
-    class Open<W extends World<W>> implements AccountMsg<W> {
+    class Open implements AccountMsg {
         public final Double initial;
         public Open(Double initial) { this.initial = initial; }
         
-        @Override public Msg<W, ID, Account, Void> local() { return
+        @Override public Msg<ID, Account, Void> local() { return
             pre(() -> initial >= 0.0).
             app(() -> new Account(initial)).
             eff(() -> null).
@@ -83,11 +83,11 @@ public interface AccountModule {
         }
     }
     
-    class Deposit<W extends World<W>> implements AccountMsg<W> {
+    class Deposit implements AccountMsg {
         public final Double amount;
         public Deposit(Double amount) { this.amount = amount; }
         
-        @Override public Msg<W, ID, Account, Void> local() { return
+        @Override public Msg<ID, Account, Void> local() { return
             pre(() -> amount > 0.0).
             app(() -> new Account(obj().balance + amount)).
             eff(() -> null).
@@ -95,11 +95,11 @@ public interface AccountModule {
         }
     }
     
-    class Withdraw<W extends World<W>> implements AccountMsg<W> {
+    class Withdraw implements AccountMsg {
         public final Double amount;
         public Withdraw(Double amount) { this.amount = amount; }
         
-        @Override public Msg<W, ID, Account, Void> local() { return
+        @Override public Msg<ID, Account, Void> local() { return
             pre(() -> amount > 0.0 && obj().balance >= amount).
             app(() -> new Account(obj().balance - amount)).
             eff(() -> null).
@@ -107,15 +107,18 @@ public interface AccountModule {
         }
     }
 }
-
 ```
 
 ```java
 public interface TransferModule {
     class ID implements Id<Transfer> {
         public final Long id;
-        public ID(Long id) { this.id = id; }
-        @Override public Transfer init() { return new Transfer(null, null, 0.0); }
+        public ID(Long id) {
+            this.id = id;
+        }
+        @Override public Transfer init() {
+            return new Transfer(null, null, 0.0);
+        }
     }
     
     class Transfer {
@@ -130,9 +133,9 @@ public interface TransferModule {
         }
     }
     
-    interface TransferMsg<W extends World<W>> extends LocalMessage<W, ID, Transfer, Void> { }
+    interface TransferMsg extends LocalMessage<ID, Transfer, Void> { }
     
-    class Book<W extends World<W>> implements TransferMsg<W> {
+    class Book implements TransferMsg {
         public final AccountModule.ID from;
         public final AccountModule.ID to;
         public final Double amount;
@@ -143,12 +146,12 @@ public interface TransferModule {
             this.amount = amount;
         }
         
-        @Override public Msg<W, ID, Transfer, Void> local() { return
+        @Override public Msg<ID, Transfer, Void> local() { return
             pre(() -> amount > 0.0 && from != to).
             app(() -> new Transfer(from, to, amount)).
             eff(() -> {
-                        send(from, new AccountModule.Withdraw<>(amount));
-                return  send(to, new AccountModule.Deposit<>(amount));
+                send(from, new AccountModule.Withdraw(amount));
+                return  send(to, new AccountModule.Deposit(amount));
             }).
             pst(() -> obj(from).balance + obj(to).balance == old(from).balance + old(to).balance);
         }

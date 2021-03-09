@@ -15,13 +15,13 @@ public interface AccountModule {
         public Account(Double balance) { this.balance = balance; }
     }
     
-    interface AccountMsg<W extends World<W>> extends LocalMessage<W, ID, Account, Void> { }
+    interface AccountMsg extends LocalMessage<ID, Account, Void> { }
     
-    class Open<W extends World<W>> implements AccountMsg<W> {
+    class Open implements AccountMsg {
         public final Double initial;
         public Open(Double initial) { this.initial = initial; }
     
-        @Override public Msg<W, ID, Account, Void> local() { return
+        @Override public Msg<ID, Account, Void> local() { return
             pre(() -> initial >= 0.0).
             app(() -> new Account(initial)).
             eff(() -> null).
@@ -29,11 +29,11 @@ public interface AccountModule {
         }
     }
     
-    class Deposit<W extends World<W>> implements AccountMsg<W> {
+    class Deposit implements AccountMsg {
         public final Double amount;
         public Deposit(Double amount) { this.amount = amount; }
         
-        @Override public Msg<W, ID, Account, Void> local() { return
+        @Override public Msg<ID, Account, Void> local() { return
             pre(() -> amount > 0.0).
             app(() -> new Account(obj().balance + amount)).
             eff(() -> null).
@@ -41,11 +41,11 @@ public interface AccountModule {
         }
     }
     
-    class Withdraw<W extends World<W>> implements AccountMsg<W> {
+    class Withdraw implements AccountMsg {
         public final Double amount;
         public Withdraw(Double amount) { this.amount = amount; }
         
-        @Override public Msg<W, ID, Account, Void> local() { return
+        @Override public Msg<ID, Account, Void> local() { return
             pre(() -> amount > 0.0 && obj().balance >= amount).
             app(() -> new Account(obj().balance - amount)).
             eff(() -> null).

@@ -20,8 +20,8 @@ public class Performance {
         }
     }
     
-    static class Increase<W extends World<W>> implements Message<W, ID, Counter, Void> {
-        public Msg<W, ID, Counter, Void> msg(Environment<W, ID, Counter, Void> e) {
+    static class Increase implements Message<ID, Counter, Void> {
+        public Msg<ID, Counter, Void> msg(Environment<ID, Counter, Void> e) {
             return e.
                 pre(() -> true).
                 app(() -> new Counter(e.obj().count + 1)).
@@ -34,12 +34,12 @@ public class Performance {
         time(() -> {
             SimpleWorld world = new SimpleWorld();
             ID id = new ID();
-            Increase<SimpleWorld> msg = new Increase<>();
+            Increase msg = new Increase();
             
             int x = 100000000;
             
             for (int i = 0; i < x; i++) {
-                world = world.send(id, msg).world;
+                world = world.send(id, msg).world();
                 if ((i % (x / 10)) == 0) {
                     System.out.println("i: " + i);
                 }

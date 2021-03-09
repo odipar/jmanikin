@@ -1,12 +1,12 @@
 package org.jmanikin.core;
 
 /**
- * <p>A Message is a factory for building a Msg using the Builder pattern.</p>
+ * <p>A Message is a factory for building a Msg using a fluent Builder.</p>
  *
  * <p>Example implementation usage:</p>
  *
  * <pre>{@code
- * public Msg<W, I, O, E> msg(Environment<W, I, O, E> env) { return env.
+ * public Msg<I, O, E> msg(Environment<I, O, E> env) { return env.
  *      pre(() -> ...).
  *      app(() -> ...).
  *      eff(() -> ...).
@@ -16,17 +16,16 @@ package org.jmanikin.core;
  *
  * <p>See also {@link org.jmanikin.example.Performance} for an example.</p>
  *
- * @param <W> the World Type
  * @param <I> the Id Type
  * @param <O> the Object Type
  * @param <E> the Effect Type
  */
-public interface Message<W extends World<W>, I extends Id<O>, O, E> {
+public interface Message<I extends Id<O>, O, E> {
     /**
      * Builds a Msg, given an Environment
      *
      * @param env the environment
      * @return the Msg
      */
-    Msg<W, I, O, E> msg(Environment<W, I, O, E> env);
+    Msg<I, O, E> msg(Environment<I, O, E> env);
 }
