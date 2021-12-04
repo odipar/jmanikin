@@ -46,6 +46,7 @@ public interface LocalMessage<I extends Id<O>, O, E>
         return local();
     }
     
+    //@Override default Environment<I, O, E> snapshot() { return env().snapshot(); }
     @Override default I self() { return env().self(); }
     @Override default O obj() { return env().obj(); }
     @Override default O old() { return env().old(); }
@@ -76,13 +77,18 @@ public interface LocalMessage<I extends Id<O>, O, E>
             this.env = env;
         }
         
+        //@Override public Environment<I, O, E> snapshot() { return new LocalEnvironment<I, O, E>(env.snapshot()); }
+        
         @Override public I self() { return env.self(); }
         @Override public O obj() { return env.obj(); }
         @Override public O old() { return env.old(); }
         @Override public <O2> O2 obj(Id<? extends O2> id) { return env.obj(id); }
         @Override public <O2> O2 old(Id<? extends O2> id) { return env.old(id); }
         @Override public <I2 extends Id<O2>, O2, R2> R2 send(I2 id, Message<I2, O2, R2> msg) {
-            return env.send(id, msg);
+            try
+                { localEnv.set(this); R2 result = env.send(id, msg); localEnv.set(this); return result; }
+            catch (Exception e)
+                { localEnv.set(this); throw e; }
         }
         
         @Override public Apply<I, O, E> pre(Supplier<Boolean> pre) { _pre = injectEnv(pre) ; return this; }
@@ -95,6 +101,8 @@ public interface LocalMessage<I extends Id<O>, O, E>
         @Override public Supplier<E> eff() { return _eff; }
         @Override public Supplier<Boolean> pst() { return _pst; }
         
-        private <X> Supplier<X> injectEnv(Supplier<X> s) { return () -> { localEnv.set(this); return s.get(); }; }
+        private <X> Supplier<X> injectEnv(Supplier<X> s) {
+            return () -> { localEnv.set(this); X get = s.get(); localEnv.set(this); return get; };
+        }
     }
 }
